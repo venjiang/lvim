@@ -7,8 +7,14 @@ local opt = { noremap = true, silent = true }
 map("n", "<Leader>n", ":tabnew<CR>", opt)
 map("n", "<Leader>a", "ggVG<CR>", opt)
 map("n", "<Leader><CR>", ":nohl<CR>", opt)
+map("n", "<C-w>", ":w<CR>", opt)
+-- map("n", "<C-q>", ":q<CR>", opt)
 
 -- lvim
+lvim.builtin.which_key.mappings[";"] = {}
+lvim.builtin.which_key.mappings["q"] = {}
+lvim.builtin.which_key.mappings["/"] = {}
+lvim.builtin.which_key.mappings["w"] = {}
 lvim.keys.insert_mode["<A-j>"] = false
 lvim.keys.insert_mode["<A-k>"] = false
 lvim.keys.normal_mode["<A-j>"] = false

@@ -8,6 +8,7 @@ end
 local function telescope_live_grep(_)
 	require("lvim.core.nvimtree").start_telescope("live_grep")
 end
+
 lvim.builtin.nvimtree.setup.view.mappings.list = {
 	{ key = "u", action = "dir_up" },
 
@@ -32,7 +33,10 @@ lvim.plugins = {
 			require("leap").set_default_keymaps()
 		end,
 	},
-
+	{
+		"phaazon/hop.nvim",
+		event = "BufRead",
+	},
 	-- git
 	{
 		"tpope/vim-fugitive",
@@ -71,6 +75,13 @@ lvim.plugins = {
 	{ "ray-x/guihua.lua", build = "cd lua/fzy && make" },
 }
 require("nvim-lastplace").setup()
+-- hop
+require("hop").setup()
+vim.api.nvim_set_keymap("n", "<leader>j", ":HopLine<cr>", { silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>w", ":HopWordCurrentLine<cr>", { silent = true })
+lvim.keys.normal_mode["<leader>w"] = ":HopWordCurrentLine<cr>"
+lvim.keys.normal_mode["<leader>/"] = ":HopPattern<cr>"
+lvim.keys.normal_mode["<leader>q"] = ":HopWord<cr>"
 -- linters and formatters <https://www.lunarvim.org/docs/languages#lintingformatting>
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
