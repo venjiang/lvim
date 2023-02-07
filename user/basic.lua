@@ -4,3 +4,4 @@ lvim.colorscheme = "onedarker"
 lvim.leader = ","
 lvim.builtin.alpha.active = false
 lvim.builtin.nvimtree.setup.view.side = "right"
+lvim.builtin.terminal.open_mapping = "<C-t>"
