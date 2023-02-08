@@ -43,10 +43,14 @@ lvim.plugins = {
 	{
 		"folke/todo-comments.nvim",
 		event = "BufRead",
-		requires = "nvim-lua/plenary.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
 		config = function()
 			require("todo-comments").setup({})
 		end,
+	},
+	--  programming activity
+	{
+		"wakatime/vim-wakatime",
 	},
 	-- git
 	{
