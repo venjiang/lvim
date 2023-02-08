@@ -27,15 +27,26 @@ lvim.plugins = {
 	"catppuccin/nvim",
 	"ethanholz/nvim-lastplace",
 	"tpope/vim-surround",
+	-- search text
 	{
 		"ggandor/leap.nvim",
 		config = function()
 			require("leap").set_default_keymaps()
 		end,
 	},
+	-- motion
 	{
 		"phaazon/hop.nvim",
 		event = "BufRead",
+	},
+	-- todo
+	{
+		"folke/todo-comments.nvim",
+		event = "BufRead",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({})
+		end,
 	},
 	-- git
 	{
