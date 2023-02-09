@@ -25,6 +25,38 @@ lvim.plugins = {
 	"ful1e5/onedark.nvim",
 	-- catppuccin
 	"catppuccin/nvim",
+	"marko-cerovac/material.nvim",
+	{
+		"olimorris/onedarkpro.nvim",
+		priority = 1000, -- Ensure it loads first
+	},
+	{
+		"folke/twilight.nvim",
+		config = function()
+			require("twilight").setup({})
+		end,
+	},
+	-- translation
+	{
+		"potamides/pantran.nvim",
+		config = function()
+			require("pantran").setup({
+				engines = {
+					yandex = {
+						default_source = "auto",
+						default_target = "chinese",
+					},
+				},
+			})
+		end,
+	},
+	-- smooth scrolling
+	{
+		"karb94/neoscroll.nvim",
+		config = function()
+			require("neoscroll").setup()
+		end,
+	},
 	"ethanholz/nvim-lastplace",
 	"tpope/vim-surround",
 	-- search text
@@ -84,11 +116,37 @@ lvim.plugins = {
 		end,
 	},
 	-- copilot
-	"github/copilot.vim",
+	-- "github/copilot.vim",
 	"leoluz/nvim-dap-go",
 	"ray-x/go.nvim",
 	{ "ray-x/guihua.lua", build = "cd lua/fzy && make" },
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = {
+					enabled = false,
+					auto_trigger = false,
+				},
+				panel = { enabled = false },
+			})
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup({
+				method = "getCompletionsCycling",
+			})
+		end,
+	},
 }
+lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot" })
+
 require("nvim-lastplace").setup()
 -- hop
 require("hop").setup()
@@ -112,3 +170,12 @@ formatters.setup({
 
 require("guihua.maps").setup()
 require("go").setup()
+-- Run gofmt + goimport on save
+local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.go",
+	callback = function()
+		require("go.format").goimport()
+	end,
+	group = format_sync_grp,
+})

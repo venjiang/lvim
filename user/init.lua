@@ -1,3 +1,3 @@
-require('user.basic')
-require('user.keymap')
-require('user.plugins')
+require("user.basic")
+require("user.keymap")
+require("user.plugins")

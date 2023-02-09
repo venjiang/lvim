@@ -5,6 +5,7 @@ lvim.colorscheme = "onedarker"
 lvim.leader = ","
 lvim.builtin.alpha.active = false
 lvim.builtin.nvimtree.setup.view.side = "right"
+lvim.builtin.nvimtree.setup.actions.open_file.quit_on_open = true
 lvim.builtin.terminal.open_mapping = "<C-t>"
 -- fg = "#abb2bf",
 -- bg = "#1f2227",
