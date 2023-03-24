@@ -36,3 +36,6 @@ lvim.builtin.which_key.mappings["t"] = {
 	w = { "<cmd>Twilight<cr>", "Twilight" },
 }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<cr>", "Projects" }
+-- neo-tree
+lvim.builtin.which_key.mappings["e"] = {}
+lvim.keys.normal_mode["<Leader>e"] = ":NeoTreeRevealToggle<CR>"

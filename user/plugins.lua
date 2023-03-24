@@ -1,24 +1,24 @@
 vim.g.copilot_assume_mapped = true
 -- vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-local function telescope_find_files(_)
-	require("lvim.core.nvimtree").start_telescope("find_files")
-end
+-- local function telescope_find_files(_)
+-- 	require("lvim.core.nvimtree").start_telescope("find_files")
+-- end
+--
+-- local function telescope_live_grep(_)
+-- 	require("lvim.core.nvimtree").start_telescope("live_grep")
+-- end
 
-local function telescope_live_grep(_)
-	require("lvim.core.nvimtree").start_telescope("live_grep")
-end
-
-lvim.builtin.nvimtree.setup.view.mappings.list = {
-	{ key = "u", action = "dir_up" },
-
-	{ key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
-	{ key = "h", action = "close_node" },
-	{ key = "v", action = "vsplit" },
-	{ key = "C", action = "cd" },
-	{ key = "gtf", action = "telescope_find_files", action_cb = telescope_find_files },
-	{ key = "gtg", action = "telescope_live_grep", action_cb = telescope_live_grep },
-}
+-- lvim.builtin.nvimtree.setup.view.mappings.list = {
+-- 	{ key = "u", action = "dir_up" },
+--
+-- 	{ key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
+-- 	{ key = "h", action = "close_node" },
+-- 	{ key = "v", action = "vsplit" },
+-- 	{ key = "C", action = "cd" },
+-- 	{ key = "gtf", action = "telescope_find_files", action_cb = telescope_find_files },
+-- 	{ key = "gtg", action = "telescope_live_grep", action_cb = telescope_live_grep },
+-- }
 
 lvim.plugins = {
 	-- onedark
@@ -50,11 +50,46 @@ lvim.plugins = {
 			})
 		end,
 	},
-	-- smooth scrolling
+	-- neo-tree
 	{
-		"karb94/neoscroll.nvim",
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v2.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"MunifTanjim/nui.nvim",
+		},
 		config = function()
-			require("neoscroll").setup()
+			require("neo-tree").setup({
+				close_if_last_window = true,
+				source_selector = {
+					winbar = true,
+				},
+				window = {
+					position = "right",
+					width = 30,
+					mappings = {
+						["l"] = "open",
+					},
+				},
+				buffers = {
+					follow_current_file = true,
+				},
+				filesystem = {
+					follow_current_file = true,
+					filtered_items = {
+						hide_dotfiles = false,
+						hide_gitignored = false,
+						hide_by_name = {
+							"node_modules",
+						},
+						never_show = {
+							".DS_Store",
+							"thumbs.db",
+						},
+					},
+				},
+			})
 		end,
 	},
 	"ethanholz/nvim-lastplace",
@@ -103,6 +138,10 @@ lvim.plugins = {
 			"Gedit",
 		},
 		ft = { "fugitive" },
+	},
+	{
+		"sindrets/diffview.nvim",
+		event = "BufRead",
 	},
 	{
 		"pwntester/octo.nvim",
